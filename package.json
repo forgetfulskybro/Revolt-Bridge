@@ -1,0 +1,20 @@
+{
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "mongoose": "^6.9.0",
+    "revolt-uploader": "^1.1.0",
+    "revolt.js": "^6.0.20"
+  },
+  "information": {
+    "Developer": "ForGetFulSkyBro",
+    "Discord": "ForGetFulSkyBro#9999",
+    "Revolt": "ForGetFulSkyBro",
+    "GitHub": "https://github.com/forgetfulskybro/revolt-bridge"
+  }
+}
