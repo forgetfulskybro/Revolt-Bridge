@@ -11,7 +11,7 @@ module.exports = async (Dclient, Rclient, message) => {
             if (!reply.masquerade) user = Rclient.users.get(reply.author_id);
             embed = new EmbedBuilder()
                 .setAuthor({ name: user ? user.username : reply.masquerade.name, iconURL: user ? user.avatar._id ? `https://autumn.revolt.chat/avatars/${user.avatar._id}/${user.avatar.filename}` : `https://api.revolt.chat/users/${user._id}/default_avatar` : reply.masquerade.avatar })
-                .setColor(`#36393F`)
+                .setColor(`#2f3037`)
                 .setDescription(`> ${reply.content.length >= 1980 ? `${reply.content.slice(0, 1980)}...` : reply.content}`)
         }
         let attach = [];

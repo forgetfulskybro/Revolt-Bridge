@@ -31,8 +31,8 @@ module.exports = async (Dclient, Rclient, message) => {
                 message.attachments.map(a => {
                     https.get(a.url, async (sp) => {
                         let msg = await Rclient.channels.get(Rclient.config.channels.Revolt).sendMessage({
-                            attachments: [await Rclient.Uploader.upload(sp, "File.png")],
-                            replies: reply ? [{ id: reply.Rid, mention: message.mentions.repliedUser }] : undefined,
+                            attachments: [await Rclient.Uploader.upload(sp, a.name || "Unknown")],
+                            replies: reply ? [{ id: reply.Rid, mention: false }] : undefined,
                             masquerade: {
                                 name: message.author.username,
                                 avatar: message.author.displayAvatarURL(),
