@@ -38,13 +38,44 @@ module.exports = async (Dclient, Rclient, message) => {
                                 avatar: message.author.displayAvatarURL(),
                             }
                         }).catch(() => { })
-                        await (new revoltMsgs({
-                            Did: message.id,
-                            Rid: msg._id
-                        }).save());
+                        if (msg) {
+                            await (new revoltMsgs({
+                                Did: message.id,
+                                Rid: msg._id
+                            }).save())
+                        } else {
+                            console.warn(`[WARNING] Unable to send image to Revolt. Most likely due to it being too big.`);
+                            return message.react(encodeURI("👎")).catch(() => { });
+                        }
                     });
                 })
-            } catch {  }
+            } catch { }
+        }
+
+        if (message.stickers.first()) {
+            try {
+                message.stickers.map(a => {
+                    https.get(`https://media.discordapp.net/stickers/${a.id}.png`, async (sp) => {
+                        let msg = await Rclient.channels.get(Rclient.config.channels.Revolt).sendMessage({
+                            attachments: [await Rclient.Uploader.upload(sp, a.name || "Unknown")],
+                            replies: reply ? [{ id: reply.Rid, mention: false }] : undefined,
+                            masquerade: {
+                                name: message.author.username,
+                                avatar: message.author.displayAvatarURL(),
+                            }
+                        }).catch(() => { })
+                        if (msg) {
+                            await (new revoltMsgs({
+                                Did: message.id,
+                                Rid: msg._id
+                            }).save())
+                        } else {
+                            console.warn(`[WARNING] Unable to send image to Revolt. Most likely due to it being too big.`);
+                            return message.react(encodeURI("👎")).catch(() => { });
+                        }
+                    });
+                })
+            } catch { }
         }
     } else {
         if (message.channel_id !== Rclient.config.channels.Revolt) return;
